@@ -1,0 +1,73 @@
+.value-box {
+  width: 75%;
+}
+
+.currency-box {
+  width: 20%;
+}
+
+mat-spinner {
+  position: fixed;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+button {
+  width: 33%;
+  height: 22%;
+  color: white;
+}
+
+.display {
+  padding-top: 56px;
+  width: 100%;
+}
+
+.keyboard {
+  background-color: #636363;
+  text-align: center;
+  height: 76%;
+}
+
+
+.numbers {
+  background-color: #434343;
+}
+
+.zero {
+  width: 66%;
+  background-color: #434343;
+}
+
+
+.mat-button {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.action-buttons {
+  width: 100%;
+}
+
+.action-button {
+  width: 25%;
+}
+
+.conversor-calc-container {
+  height: 100%;
+}
+
+.mat-form-field {
+  text-align: right;
+}
+
+input {
+  font-size: 24px;
+}
+
+:host/deep/ .mat-form-field-underline {
+  display: none;
+}

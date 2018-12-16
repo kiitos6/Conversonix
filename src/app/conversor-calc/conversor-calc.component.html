@@ -1,0 +1,53 @@
+
+<div class="conversor-calc-container" fxLayout="column" fxLayoutAlign="space-between stretch">
+  <div class="display">
+    <mat-form-field class="currency-box" >
+      <mat-select  >
+        <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setBaseFrom(rate.key)" [value]="rate.key" >{{ rate.key }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="value-box" >
+      <input id="amount" [value]="amount" matInput readonly="true">
+    </mat-form-field>
+
+    <mat-divider></mat-divider>
+
+    <mat-form-field class="currency-box">
+      <mat-select>
+        <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setCurrencyTo(rate.key)" [value]="rate.key">{{ rate.key }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field hideRequiredMarker=true class="value-box">
+      <input id="resultAmount" [value]="resultAmount" matInput readonly="true">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" class="keyboard">
+      
+      <div class="numbers">
+        <app-button-number (clickNumber)="updateDisplay($event)" 
+                            *ngFor="let num of numberLabels" 
+                            [numButton]="num"
+                            [class]="numbersClass">
+        </app-button-number>
+        <app-button-number (clickNumber)="updateDisplay($event)" 
+                            [numButton]="0"
+                            [class]="zeroClass">
+        </app-button-number>
+        <app-button-number (clickNumber)="updateDisplay($event)" 
+                            [numButton]="'.'"
+                            [class]="numbersClass">
+        </app-button-number>
+        <!-- <button class="zero" mat-button value="0" (click)="updateDisplay(0)">0</button>
+        <button mat-button class="decimal" value="." (click)="updateDisplay('.')">.</button> -->
+      </div>
+      <div class="action-button">
+        <button mat-button class="action-buttons" (click)="resetDisplay()" >C</button>
+        <button mat-button class="action-buttons" (click)="delete()">CE</button>
+      </div>
+        
+  </div>
+</div>
+
+<mat-spinner *ngIf="loader"></mat-spinner>
