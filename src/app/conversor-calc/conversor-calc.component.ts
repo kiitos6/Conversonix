@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Currency } from '../shared/models/currency';
 import { ConversorService } from '../services/conversor.service';
-import { SharedModule } from '../shared/shared.module';
-import { Subject } from 'rxjs';
-import { HostListener } from '@angular/core';
-import { MatButton } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-conversor-calc',
@@ -13,17 +11,18 @@ import { MatButton } from '@angular/material';
 })
 export class ConversorCalcComponent implements OnInit {
 
-  @Input() resultAmount = 0;
+  baseFrom = 'EUR';
+  currencyTo = 'USD';
+  resultAmount = '0';
   amount = '0';
-  // numbers = [];
   currrencyList: Currency[];
   loader: boolean;
-  @Input() baseFrom: string;
-  @Input() currencyTo: string;
   numberLabels =  [];
   zeroClass = 'zero mat-button';
   numbersClass = 'numbers mat-button';
-
+  decimalSign = false;
+  maxDecimal = false;
+  decimalNumbers = 0;
 
   constructor(private conversorService: ConversorService) {
    }
@@ -47,39 +46,55 @@ export class ConversorCalcComponent implements OnInit {
     }
   }
 
-  updateDisplay(number): void {
-    if (this.amount.startsWith('0')) {
+  updateDisplay(num: string): void {
+
+
+    if (num === '.' && this.decimalSign === false) {
+      this.decimalSign = true;
+      this.amount = this.amount.concat(num);
+    } else if (num !== '.' && this.amount.startsWith('0')) {
       this.amount = '';
+      this.amount = this.amount.concat(num);
+    } else if (num !== '.') {
+      this.amount = this.amount.concat(num);
     }
-    this.amount = this.amount.concat(number);
+
     this.getConversion();
-    console.log(number);
+    console.log(num);
   }
 
   resetDisplay(): void {
     this.amount = '0';
+    this.resultAmount = '0';
+    this.decimalSign = false;
+    this.maxDecimal = false;
   }
 
   delete(): void {
-    if (!this.amount.startsWith('0')) {
+    if (this.amount.length === 1) {
+      this.amount = '0';
+    } else if (!this.amount.startsWith('0')) {
       this.amount = this.amount.slice(0, this.amount.length - 1);
     }
+    this.getConversion();
   }
 
-  setBaseFrom(base): void {
+  setBaseFrom(base: string): void {
     this.baseFrom = base;
-    console.log(this.baseFrom);
+    this.getConversion();
   }
 
-  setCurrencyTo(currency): void {
+  setCurrencyTo(currency: string): void {
     this.currencyTo = currency;
-    console.log(this.currencyTo);
+    this.getConversion();
   }
 
   getConversion(): void {
-
-
+    const baseToConvert = this.currrencyList[this.baseFrom];
+    const currencyToConvert =  this.currrencyList[this.currencyTo];
+    this.resultAmount = ((+this.amount * currencyToConvert) / baseToConvert).toString();
+    if (this.decimalSign) {
+      this.resultAmount = this.resultAmount.substring(0, this.resultAmount.indexOf('.') + 4);
+    }
   }
-
-
 }

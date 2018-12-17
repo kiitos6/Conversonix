@@ -1,20 +1,20 @@
 
 <div class="conversor-calc-container" fxLayout="column" fxLayoutAlign="space-between stretch">
   <div class="display">
-    <mat-form-field class="currency-box" >
-      <mat-select  >
-        <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setBaseFrom(rate.key)" [value]="rate.key" >{{ rate.key }}</mat-option>
+    <mat-form-field  class="currency-box" >
+      <mat-select [value]="baseFrom">
+        <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setBaseFrom(rate.key)" [value]="rate.key">{{ rate.key }}</mat-option>
       </mat-select>
     </mat-form-field>
     
     <mat-form-field class="value-box" >
       <input id="amount" [value]="amount" matInput readonly="true">
     </mat-form-field>
-
+ 
     <mat-divider></mat-divider>
 
     <mat-form-field class="currency-box">
-      <mat-select>
+      <mat-select  [value]="currencyTo">
         <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setCurrencyTo(rate.key)" [value]="rate.key">{{ rate.key }}</mat-option>
       </mat-select>
     </mat-form-field>

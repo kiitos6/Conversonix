@@ -1,9 +1,9 @@
 .value-box {
-  width: 75%;
+  width: 65%;
 }
 
 .currency-box {
-  width: 20%;
+  width: 30%;
 }
 
 mat-spinner {
@@ -70,4 +70,12 @@ input {
 
 :host/deep/ .mat-form-field-underline {
   display: none;
+}
+
+:host/deep/ .mat-select-value {
+  text-align: center;
+}
+
+:host/deep/ .mat-form-field-label-wrapper {
+  text-align: left;
 }
