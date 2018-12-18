@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Currency } from '../shared/models/currency';
 import { ConversorService } from '../services/conversor.service';
-import { FormControl, Validators } from '@angular/forms';
-
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-conversor-calc',
@@ -24,7 +24,10 @@ export class ConversorCalcComponent implements OnInit {
   regexAmount: RegExp =  /^\d*\.?\d{0,2}$/;
 
 
-  constructor(private conversorService: ConversorService) {
+  constructor(private conversorService: ConversorService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'swap',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/swap.svg'));
    }
 
   ngOnInit() {
@@ -95,8 +98,16 @@ export class ConversorCalcComponent implements OnInit {
     const baseToConvert = this.currrencyList[this.baseFrom];
     const currencyToConvert =  this.currrencyList[this.currencyTo];
     this.resultAmount = ((+this.amount * currencyToConvert) / baseToConvert).toString();
-    if (this.decimalSign) {
-      this.resultAmount = this.resultAmount.substring(0, this.resultAmount.indexOf('.') + 4);
-    }
+    this.resultAmount = this.resultAmount.substring(0, this.resultAmount.indexOf('.') + 4);
+  }
+
+  changeCurrencies(): void {
+    let aux = this.baseFrom;
+    this.baseFrom = this.currencyTo;
+    this.currencyTo = aux;
+
+    aux = this.resultAmount;
+    this.resultAmount = this.amount;
+    this.amount = aux;
   }
 }

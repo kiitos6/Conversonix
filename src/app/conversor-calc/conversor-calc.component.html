@@ -3,19 +3,38 @@
   <div class="display">
     <mat-form-field  class="currency-box" >
       <mat-select [value]="baseFrom">
-        <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setBaseFrom(rate.key)" [value]="rate.key">{{ rate.key }}</mat-option>
+        <mat-option  *ngFor="let rate of currrencyList | keyvalue" 
+                    (click)="setBaseFrom(rate.key)" 
+                    [value]="rate.key">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <img class="avatar-currencies" src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/> {{ rate.key }}
+            </div>             
+          </mat-option>
       </mat-select>
     </mat-form-field>
     
     <mat-form-field class="value-box" >
       <input id="amount" [value]="amount" matInput readonly="true">
     </mat-form-field>
- 
-    <mat-divider></mat-divider>
+
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-divider class="divider-size"></mat-divider>
+      <button mat-mini-fab color="primary" (click)="changeCurrencies()">
+        <mat-icon svgIcon="swap"></mat-icon>
+      </button>
+      <mat-divider class="divider-size"></mat-divider>
+    </div>  
 
     <mat-form-field class="currency-box">
       <mat-select  [value]="currencyTo">
-        <mat-option *ngFor="let rate of currrencyList | keyvalue" (click)="setCurrencyTo(rate.key)" [value]="rate.key">{{ rate.key }}</mat-option>
+        <mat-option *ngFor="let rate of currrencyList | keyvalue" 
+                    (click)="setCurrencyTo(rate.key)" 
+                    [value]="rate.key">
+          <div fxLayout="row" fxLayoutAlign="center center">
+              <img class="avatar-currencies" src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/> {{ rate.key }}
+          </div>  
+        </mat-option>
       </mat-select>
     </mat-form-field>
     
@@ -42,9 +61,9 @@
         <!-- <button class="zero" mat-button value="0" (click)="updateDisplay(0)">0</button>
         <button mat-button class="decimal" value="." (click)="updateDisplay('.')">.</button> -->
       </div>
-      <div class="action-button">
-        <button mat-button class="action-buttons" (click)="resetDisplay()" >C</button>
-        <button mat-button class="action-buttons" (click)="delete()">CE</button>
+      <div class="action-buttons">
+        <button mat-button class="action-button" (click)="resetDisplay()" >C</button>
+        <button mat-button class="action-button" (click)="delete()">CE</button>
       </div>
         
   </div>
