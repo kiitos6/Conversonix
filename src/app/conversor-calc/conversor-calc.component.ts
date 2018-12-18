@@ -21,8 +21,8 @@ export class ConversorCalcComponent implements OnInit {
   zeroClass = 'zero mat-button';
   numbersClass = 'numbers mat-button';
   decimalSign = false;
-  maxDecimal = false;
-  decimalNumbers = 0;
+  regexAmount: RegExp =  /^\d*\.?\d{0,2}$/;
+
 
   constructor(private conversorService: ConversorService) {
    }
@@ -48,32 +48,34 @@ export class ConversorCalcComponent implements OnInit {
 
   updateDisplay(num: string): void {
 
+    if (this.amount.match(this.regexAmount)  !== null) {
 
-    if (num === '.' && this.decimalSign === false) {
-      this.decimalSign = true;
-      this.amount = this.amount.concat(num);
-    } else if (num !== '.' && this.amount.startsWith('0')) {
-      this.amount = '';
-      this.amount = this.amount.concat(num);
-    } else if (num !== '.') {
-      this.amount = this.amount.concat(num);
+      if (num === '.' && this.decimalSign === false) {
+        this.decimalSign = true;
+        this.amount = this.amount.concat(num);
+      } else if (num !== '.' && this.amount === '0') {
+        this.amount = '';
+        this.amount = this.amount.concat(num);
+      } else if (num !== '.') {
+        this.amount = this.amount.concat(num);
+      }
+      this.getConversion();
     }
-
-    this.getConversion();
-    console.log(num);
   }
 
   resetDisplay(): void {
     this.amount = '0';
     this.resultAmount = '0';
     this.decimalSign = false;
-    this.maxDecimal = false;
   }
 
   delete(): void {
     if (this.amount.length === 1) {
       this.amount = '0';
-    } else if (!this.amount.startsWith('0')) {
+    } else if (this.amount !== '0') {
+      if (this.amount.endsWith('.')) {
+        this.decimalSign = false;
+      }
       this.amount = this.amount.slice(0, this.amount.length - 1);
     }
     this.getConversion();
