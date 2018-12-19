@@ -16,7 +16,7 @@
     </mat-form-field>
     
     <mat-form-field class="value-box" >
-      <input id="amount" [value]="amount" matInput readonly="true">
+      <input id="amount" [value]="amount | number:'1.0-3'" matInput readonly="true">
     </mat-form-field>
 
 
@@ -44,7 +44,7 @@
     </mat-form-field>
     
     <mat-form-field hideRequiredMarker=true class="value-box">
-      <input id="resultAmount" [value]="resultAmount" matInput readonly="true">
+      <input id="resultAmount" [value]="resultAmount | number:'1.0-3'" matInput readonly="true">
     </mat-form-field>
   </div>
   <div fxLayout="row" class="keyboard">

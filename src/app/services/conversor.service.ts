@@ -48,12 +48,4 @@ export class ConversorService {
     return this.symbols;
   }
 
-  // getConversion(baseFrom, currencyTo, amount): Observable<ConversionResponse> {
-  //   this.baseFrom = '&from='.concat(baseFrom);
-  //   this.currencyTo = '&to='.concat(currencyTo);
-  //   this.amount = '&amount='.concat(amount);
-  //   this.conversionResponse =
-  //     this.http.get<ConversionResponse>(this.fixerUrlConvert.concat(this.baseFrom).concat(this.currencyTo).concat(this.amount));
-  //   return this.conversionResponse;
-  // }
 }
