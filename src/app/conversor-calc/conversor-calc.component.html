@@ -1,13 +1,15 @@
-
 <div class="conversor-calc-container" fxLayout="column" fxLayoutAlign="space-between stretch">
   <div class="display">
-    <mat-form-field  class="currency-box" >
+    <mat-form-field class="currency-box" >
       <mat-select [value]="baseFrom">
-        <mat-option  *ngFor="let rate of currrencyList | keyvalue" 
+        <mat-select-trigger fxLayout="row" fxLayoutAlign="center center">
+            <img class="avatar-currencies-trigger" src="assets/images/{{baseFrom}}.png" alt="{{baseFrom}}"/> {{baseFrom}}
+        </mat-select-trigger>
+        <mat-option *ngFor="let rate of currrencyList | keyvalue" 
                     (click)="setBaseFrom(rate.key)" 
                     [value]="rate.key">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <img class="avatar-currencies" src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/> {{ rate.key }}
+                <img class="avatar-currencies-option" src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/> {{ rate.key }}
             </div>             
           </mat-option>
       </mat-select>
@@ -28,11 +30,14 @@
 
     <mat-form-field class="currency-box">
       <mat-select  [value]="currencyTo">
+        <mat-select-trigger fxLayout="row" fxLayoutAlign="center center">
+            <img class="avatar-currencies-trigger" src="assets/images/{{currencyTo}}.png" alt="{{currencyTo}}"/> {{currencyTo}}
+        </mat-select-trigger>
         <mat-option *ngFor="let rate of currrencyList | keyvalue" 
                     (click)="setCurrencyTo(rate.key)" 
                     [value]="rate.key">
           <div fxLayout="row" fxLayoutAlign="center center">
-              <img class="avatar-currencies" src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/> {{ rate.key }}
+              <img class="avatar-currencies-option" src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/> {{ rate.key }}
           </div>  
         </mat-option>
       </mat-select>

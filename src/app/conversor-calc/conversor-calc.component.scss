@@ -80,10 +80,19 @@ input {
   width: 45%;
 }
 
-.avatar-currencies{
+.avatar-currencies-option{
   flex-shrink: 0;
   width: 40px;
   height: 30px;
   object-fit: cover;
   margin-right: 20%;
+}
+
+.avatar-currencies-trigger{
+  flex-shrink: 0;
+  width: 35px;
+  height: 25px;
+  object-fit: cover;
+  margin-right: 12%;
+  margin-left: 10%;
 }
