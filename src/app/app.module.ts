@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ButtonNumberComponent } from './conversor-calc/button-number/button-number.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './shared/routing/routing-strategy';
 
 
 
@@ -31,7 +33,9 @@ import { ButtonNumberComponent } from './conversor-calc/button-number/button-num
     ConversorCalcComponent,
     ButtonNumberComponent,
   ],
-  providers: [],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
+  ],
   bootstrap: [
     AppComponent,
   ],
