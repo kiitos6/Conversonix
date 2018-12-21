@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ConversorListComponent } from './conversor-list/conversor-list.component';
 import { ConversorCalcComponent } from './conversor-calc/conversor-calc.component';
-import { ConversorCalcModule } from './conversor-calc/conversor-calc.module';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/calc', pathMatch: 'full' },

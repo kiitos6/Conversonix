@@ -20,14 +20,6 @@ export class ConversorService {
 
   private fixerUrlLatest = 'http://data.fixer.io/api/latest?access_key='.concat(this.API_KEY);
 
-  private fixerUrlConvert = 'http://data.fixer.io/api/convert?access_key='.concat(this.API_KEY);
-
-  private baseFrom = '&from=';
-
-  private currencyTo = '&to=';
-
-  private amount = '&amount=';
-
   response: Observable<LatestCurrenciesResponse> ;
 
   conversionResponse: Observable<ConversionResponse>;

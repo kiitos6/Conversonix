@@ -22,6 +22,10 @@ export class ConversorListComponent implements OnInit {
     this.getCurrencyList();
   }
 
+  changeBase(): void {
+    console.log('Selecting new Base');
+  }
+
   getCurrencyList(): void {
     this.loader = true;
     this.conversorService.getCurrencyList().subscribe(data => {

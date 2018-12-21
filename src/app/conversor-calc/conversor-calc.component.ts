@@ -17,7 +17,7 @@ export class ConversorCalcComponent implements OnInit {
   amount = '0';
   currrencyList: Currency[];
   loader: boolean;
-  numberLabels =  [];
+  numberLabels = [];
   zeroClass = 'zero mat-button';
   numbersClass = 'numbers mat-button';
   decimalSign = false;
@@ -110,4 +110,6 @@ export class ConversorCalcComponent implements OnInit {
     this.resultAmount = this.amount;
     this.amount = aux;
   }
+
+
 }
