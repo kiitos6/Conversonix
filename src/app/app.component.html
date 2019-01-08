@@ -2,7 +2,7 @@
   <h1>Conversonix</h1> 
   <div class="menu-position">
   <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon svgIcon="more_vert"></mat-icon>
+    <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <div *ngIf="activeLinkIndex === 0">
@@ -12,17 +12,9 @@
       </button>
     </div>
     <div *ngIf="activeLinkIndex === 1">
-      <button mat-menu-item (click)="changeBase()" >
-        <mat-icon svgIcon="euro_symbol"></mat-icon>
-        <span>Change base currency</span>
-      </button>
       <button mat-menu-item>
         <mat-icon svgIcon="search"></mat-icon>
         <span>Search...</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon svgIcon="favorite"></mat-icon>
-        <span>Favorites</span>
       </button>
     </div>
   </mat-menu>

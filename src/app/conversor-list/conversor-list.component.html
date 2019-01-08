@@ -1,12 +1,12 @@
 <div class="main-box">
-  <mat-list >
-    <mat-list-item *ngFor="let rate of currrencyList | keyvalue">
-      <img matListAvatar src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/>
-      <h4 mat-line>{{ rate.key }}</h4>
-      <p mat-line> {{ currenciesData[rate.key]? currenciesData[rate.key]['name'] : 'Coin'}}</p>
-      <p> {{ rate.value | number:'1.2-2' }}{{ currenciesData[rate.key] ? currenciesData[rate.key]['symbol_native'] : '€' }}</p>
+  <mat-action-list>
+    <button mat-list-item (click)="openDialog(rate.key)" *ngFor="let rate of currrencyList | keyvalue">
+        <img matListAvatar src="assets/images/{{rate.key}}.png" alt="{{rate.key}}"/>
+        <h4 class="text-left" mat-line>{{ rate.key }}</h4>
+        <p class="text-left" mat-line> {{ currenciesData[rate.key]? currenciesData[rate.key]['name'] : 'Coin'}}</p>
+        <p> {{ rate.value | number:'1.2-2' }}{{ currenciesData[rate.key] ? currenciesData[rate.key]['symbol_native'] : '€' }}</p>
       <mat-divider inset></mat-divider>
-    </mat-list-item>
-  </mat-list >
+    </button>
+  </mat-action-list >
   <mat-spinner *ngIf="loader"></mat-spinner>
 </div>

@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ConversorCalcComponent implements OnInit {
 
   baseFrom = 'EUR';
+  euroBase = {EUR: 1};
   currencyTo = 'USD';
   resultAmount = '0';
   amount = '0';
@@ -24,10 +25,7 @@ export class ConversorCalcComponent implements OnInit {
   regexAmount: RegExp =  /^\d*\.?\d{0,2}$/;
 
 
-  constructor(private conversorService: ConversorService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'swap',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/swap.svg'));
+  constructor(private conversorService: ConversorService) {
    }
 
   ngOnInit() {
@@ -37,9 +35,12 @@ export class ConversorCalcComponent implements OnInit {
 
   getCurrencyList(): void {
     this.loader = true;
-    this.conversorService.getCurrencyList().subscribe(data => {
+    this.conversorService.getCurrencyList(this.baseFrom).subscribe(data => {
       this.loader = false;
       this.currrencyList = data.rates;
+      if (data.base === 'EUR') {
+        this.currrencyList = Object.assign(this.currrencyList, this.euroBase);
+      }
     });
   }
 

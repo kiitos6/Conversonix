@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConversorListComponent } from './conversor-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 @NgModule({
@@ -9,6 +10,6 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     SharedModule,
   ],
-  declarations: [ConversorListComponent]
+  declarations: [ConversorListComponent, DialogComponent]
 })
 export class ConversorListModule { }

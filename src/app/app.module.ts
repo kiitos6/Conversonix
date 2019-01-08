@@ -13,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ButtonNumberComponent } from './conversor-calc/button-number/button-number.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './shared/routing/routing-strategy';
+import { DialogComponent } from './conversor-list/dialog/dialog.component';
 
 
 
@@ -32,9 +33,13 @@ import { CustomReuseStrategy } from './shared/routing/routing-strategy';
     ConversorListComponent,
     ConversorCalcComponent,
     ButtonNumberComponent,
+    DialogComponent,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
+  ],
+  entryComponents: [
+    DialogComponent,
   ],
   bootstrap: [
     AppComponent,

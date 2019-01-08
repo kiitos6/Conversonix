@@ -13,7 +13,7 @@ $conversor-app-primary: mat-palette($mat-indigo);
 $conversor-app-accent:  mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$conversor-app-warn:    mat-palette($mat-red);
+$conversor-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $conversor-app-theme: mat-light-theme($conversor-app-primary, $conversor-app-accent, $conversor-app-warn);
