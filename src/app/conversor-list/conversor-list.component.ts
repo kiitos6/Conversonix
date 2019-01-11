@@ -41,10 +41,14 @@ export class ConversorListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      const addedToFav = 'Currency added to favorites';
+      const removedFromFav = 'Currency removed from favorites';
+      const baseCurrency = 'Base currency defined correctly';
       if (result !== undefined) {
         switch (result.action) {
           case 'change_base': {
             this.getCurrencyList(result.currencyInfo);
+            this.showFeedbackNotificacion(baseCurrency, 'Undo');
             break;
           }
           case 'add_favorite': {
@@ -54,11 +58,13 @@ export class ConversorListComponent implements OnInit {
             if (!this.currencyFavList.has(keyName)) {
               this.currencyFavList.set(keyName, keyValue);
             }
+            this.showFeedbackNotificacion(addedToFav, 'Undo');
             console.log(this.currencyFavList);
             break;
           }
           case 'remove_favorite': {
             this.currencyFavList.delete(result.currencyInfo);
+            this.showFeedbackNotificacion(removedFromFav, 'Undo');
             console.log(this.currencyFavList);
           }
         }
@@ -79,15 +85,15 @@ export class ConversorListComponent implements OnInit {
       if (this.currencyFavList.size > 0) {
         this.currencyFavList.forEach((value: number, key: string) => {
           this.currencyFavList.set(key, this.currrencyList[key]);
-          console.log(key); });
+        });
       }
       console.log(this.currrencyList);
     });
   }
 
-  showFeedBackNotificacion(message: string, action: string) {
+  showFeedbackNotificacion(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
 
