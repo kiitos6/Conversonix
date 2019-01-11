@@ -30,7 +30,12 @@ export class DialogComponent implements OnInit {
     }
 
     addFavorites(): void {
-      this.data.action = 'add_favorites';
+      this.data.action = 'add_favorite';
+      this.dialogRef.close(this.data);
+    }
+
+    removeFavorites(): void {
+      this.data.action = 'remove_favorite';
       this.dialogRef.close(this.data);
     }
 

@@ -1,12 +1,16 @@
-<h1 mat-dialog-title>Actions</h1>
+<h1 mat-dialog-title>{{data.currenciesData[data.currencyInfo]['name']}} - {{data.currencyInfo}}</h1>
 <mat-action-list>
-  <button mat-list-item (click)="changeBase()" *ngIf="data.base !== data.currencyValue">
+  <button mat-list-item (click)="changeBase()" *ngIf="data.base !== data.currencyInfo">
     <mat-icon class="icon-position">euro_symbol</mat-icon>
     Select as base currency
   </button>
-  <mat-divider></mat-divider>
-  <button mat-list-item (click)="addFavorites()">
-      <mat-icon class="icon-position">favorite</mat-icon>
-      Add to favorites
+  <mat-divider *ngIf="data.base !== data.currencyInfo"></mat-divider>
+  <button *ngIf="!data.favorite" mat-list-item (click)="addFavorites()">
+    <mat-icon class="icon-position">favorite</mat-icon>
+    Add to favorites
   </button>
+  <button *ngIf="data.favorite" mat-list-item (click)="removeFavorites()">
+    <mat-icon class="icon-position">clear</mat-icon>
+    Remove from favorites
+  </button> 
 </mat-action-list>

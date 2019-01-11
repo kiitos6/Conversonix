@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Currency } from '../shared/models/currency';
 import { ConversorService } from '../services/conversor.service';
 import { currencies } from './currencies';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
@@ -13,37 +13,57 @@ import { DialogComponent } from './dialog/dialog.component';
 export class ConversorListComponent implements OnInit {
 
   currrencyList: Currency[];
+  currencyFavList: Map<string, number> = new Map();
   euroBase = {EUR: 1};
   base = 'EUR';
   currenciesData = currencies;
   loader: boolean;
 
-  constructor(private conversorService: ConversorService, public dialog: MatDialog) { }
+  constructor(private conversorService: ConversorService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getCurrencyList(this.base);
   }
 
-  openDialog(value: string): void {
-    console.log(value);
+  actionSelect(currInfo: string, currValue: number): void {
+    let fav = false;
+
+    if (this.currencyFavList.has(currInfo)) {
+      fav = true;
+    }
+    this.openDialog(currInfo, currValue, fav);
+  }
+
+  openDialog(currInfo: string, currValue: number, favorite: boolean ): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '350px',
-      data: {base: this.base, currencyValue: value}
+      data: {base: this.base, currencyInfo: currInfo, currencyValue: currValue, currenciesData: this.currenciesData, favorite: favorite}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         switch (result.action) {
           case 'change_base': {
-            this.getCurrencyList(result.currencyValue);
+            this.getCurrencyList(result.currencyInfo);
+            break;
+          }
+          case 'add_favorite': {
+            const keyName = result.currencyInfo;
+            const keyValue = result.currencyValue;
+
+            if (!this.currencyFavList.has(keyName)) {
+              this.currencyFavList.set(keyName, keyValue);
+            }
+            console.log(this.currencyFavList);
+            break;
+          }
+          case 'remove_favorite': {
+            this.currencyFavList.delete(result.currencyInfo);
+            console.log(this.currencyFavList);
           }
         }
       }
     });
-  }
-
-  changeBase(): void {
-    console.log('Selecting new Base');
   }
 
   getCurrencyList(currency: string): void {
@@ -55,6 +75,20 @@ export class ConversorListComponent implements OnInit {
       if (data.base === 'EUR') {
         this.currrencyList = Object.assign(this.currrencyList, this.euroBase);
       }
+
+      if (this.currencyFavList.size > 0) {
+        this.currencyFavList.forEach((value: number, key: string) => {
+          this.currencyFavList.set(key, this.currrencyList[key]);
+          console.log(key); });
+      }
+      console.log(this.currrencyList);
     });
   }
+
+  showFeedBackNotificacion(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
 }
