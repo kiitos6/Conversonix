@@ -24,3 +24,7 @@ mat-spinner {
 .text-left{
   text-align: left;
 }
+
+::ng-deep .cdk-overlay-pane{
+  margin-bottom: 12% !important;
+}

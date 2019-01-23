@@ -1,4 +1,4 @@
-<div class="conversor-calc-container" fxLayout="column" fxLayoutAlign="space-between stretch">
+<div *ngIf="!loader" class="conversor-calc-container" fxLayout="column" fxLayoutAlign="space-between stretch">
   <div class="display">
     <mat-form-field class="currency-box" >
       <mat-select [value]="baseFrom">

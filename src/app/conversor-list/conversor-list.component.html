@@ -1,22 +1,35 @@
 <div class="main-box">
-  <mat-action-list>
-      <h3 mat-subheader *ngIf="currencyFavList.size > 0">
-            Favorites
-      </h3>
-        <button mat-list-item (click)="actionSelect(rate.key, rate.value)" *ngFor="let rate of currencyFavList | keyvalue">
-          <img matListAvatar src="assets/images/{{rate.key}}.png" alt="{{rate.key}}" />
-          <h4 class="text-left" mat-line>{{ rate.key }}</h4>
-          <p class="text-left" mat-line> {{ currenciesData[rate.key]? currenciesData[rate.key]['name'] : 'Coin'}}</p>
-          <p> {{ rate.value | number:'1.2-2' }}{{ currenciesData[rate.key] ? currenciesData[rate.key]['symbol_native']
-            : '€' }}</p>
-          <mat-divider inset></mat-divider>
-        </button>
+  <mat-action-list  *ngIf="!loader">
+    <h3 mat-subheader>
+      Base currency
+    </h3>
+      <button mat-list-item>
+        <img matListAvatar src="assets/images/{{base}}.png" alt="{{base}}" />
+        <h4 class="text-left" mat-line>{{ base }}</h4>
+        <p class="text-left" mat-line> {{ currenciesData[base]? currenciesData[base]['name'] : 'Coin'}}</p>
+        <p> {{ 1 | number:'1.2-2' }}{{ currenciesData[base] ? currenciesData[base]['symbol_native']
+          : '€' }}</p>
+        <mat-divider inset></mat-divider>
+      </button>
 
-        <h3 mat-subheader>
-           Currencies
-        </h3>
+      <h3 mat-subheader *ngIf="favListToShow">
+        Favorites
+      </h3>
+        <div *ngFor="let rate of currencyFavList | keyvalue">
+          <button mat-list-item (click)="actionSelect(rate.key, rate.value)" *ngIf="rate.key !== base">
+            <img matListAvatar src="assets/images/{{rate.key}}.png" alt="{{rate.key}}" />
+            <h4 class="text-left" mat-line>{{ rate.key }}</h4>
+            <p class="text-left" mat-line> {{ currenciesData[rate.key]? currenciesData[rate.key]['name'] : 'Coin'}}</p>
+            <p> {{ rate.value | number:'1.2-2' }}{{ currenciesData[rate.key] ? currenciesData[rate.key]['symbol_native']
+              : '€' }}</p>
+            <mat-divider inset></mat-divider>
+          </button>
+        </div>
+      <h3 mat-subheader>
+        Currencies
+      </h3>
           <div *ngFor="let rate of currrencyList | keyvalue">
-            <button mat-list-item (click)="actionSelect(rate.key, rate.value)" *ngIf="!currencyFavList.has(rate.key)">
+            <button mat-list-item (click)="actionSelect(rate.key, rate.value)" *ngIf="!currencyFavList.has(rate.key) && rate.key !== base">
               <img matListAvatar src="assets/images/{{rate.key}}.png" alt="{{rate.key}}" />
               <h4 class="text-left" mat-line>{{ rate.key }}</h4>
               <p class="text-left" mat-line> {{ currenciesData[rate.key]? currenciesData[rate.key]['name'] : 'Coin'}}</p>

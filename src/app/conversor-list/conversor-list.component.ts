@@ -18,6 +18,11 @@ export class ConversorListComponent implements OnInit {
   base = 'EUR';
   currenciesData = currencies;
   loader: boolean;
+  undoSetBase: string;
+  undoAddToFav: string;
+  undoRemoveFav: string;
+  undoAction = '';
+  favListToShow = false;
 
   constructor(private conversorService: ConversorService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
@@ -46,34 +51,62 @@ export class ConversorListComponent implements OnInit {
       const baseCurrency = 'Base currency defined correctly';
       if (result !== undefined) {
         switch (result.action) {
-          case 'change_base': {
-            this.getCurrencyList(result.currencyInfo);
+          case DialogActions.Change_base: {
+            this.changeDefaultBase(result.currencyInfo);
             this.showFeedbackNotificacion(baseCurrency, 'Undo');
             break;
           }
-          case 'add_favorite': {
-            const keyName = result.currencyInfo;
-            const keyValue = result.currencyValue;
-
-            if (!this.currencyFavList.has(keyName)) {
-              this.currencyFavList.set(keyName, keyValue);
-            }
+          case DialogActions.Add_favorite: {
+            this.addToFavorites(result.currencyInfo, result.currencyValue);
             this.showFeedbackNotificacion(addedToFav, 'Undo');
-            console.log(this.currencyFavList);
             break;
           }
-          case 'remove_favorite': {
-            this.currencyFavList.delete(result.currencyInfo);
+          case DialogActions.Remove_favorite: {
+            this.removeFromFavorites(result.currencyInfo);
             this.showFeedbackNotificacion(removedFromFav, 'Undo');
-            console.log(this.currencyFavList);
           }
         }
       }
     });
   }
 
+  changeDefaultBase(keyName: string) {
+    this.undoSetBase = this.base;
+    this.getCurrencyList(keyName);
+    this.undoAction = UndoActions.Undo_change_base;
+  }
+
+  addToFavorites(keyName: string, keyValue: number) {
+    this.currencyFavList = this.conversorService.addToFavorites(keyName, keyValue, this.currencyFavList);
+    this.undoAddToFav = keyName;
+    this.undoAction = UndoActions.Undo_add_fav;
+
+    if (this.currencyFavList.size === 1 && this.currencyFavList.has(this.base)) {
+      this.favListToShow = false;
+    } else if (this.currencyFavList.size < 1 ) {
+      this.favListToShow = false;
+    } else {
+      this.favListToShow = true;
+    }
+  }
+
+  removeFromFavorites(keyName: string) {
+    this.currencyFavList = this.conversorService.removeFromFavorites(keyName, this.currencyFavList);
+    this.undoRemoveFav = keyName;
+    this.undoAction = UndoActions.Undo_remove_fav;
+
+    if (this.currencyFavList.size === 1 && this.currencyFavList.has(this.base)) {
+      this.favListToShow = false;
+    } else if (this.currencyFavList.size < 1 ) {
+      this.favListToShow = false;
+    } else {
+      this.favListToShow = true;
+    }
+  }
+
   getCurrencyList(currency: string): void {
     this.loader = true;
+    this.base = currency;
     this.conversorService.getCurrencyList(currency).subscribe(data => {
       this.loader = false;
       this.currrencyList = data.rates;
@@ -94,7 +127,36 @@ export class ConversorListComponent implements OnInit {
   showFeedbackNotificacion(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
+    }).onAction().subscribe(() => {
+    switch (this.undoAction) {
+      case UndoActions.Undo_change_base: {
+        this.changeDefaultBase(this.undoSetBase);
+        break;
+      }
+      case UndoActions.Undo_add_fav: {
+        this.removeFromFavorites(this.undoAddToFav);
+        break;
+      }
+      case UndoActions.Undo_remove_fav: {
+        this.addToFavorites(this.undoRemoveFav, this.currrencyList[this.undoRemoveFav]);
+        break;
+      }
+    }
     });
+
   }
+
+}
+
+enum UndoActions {
+  Undo_change_base = 'UNDO_CHANGE_BASE',
+  Undo_add_fav = 'UNDO_ADD_FAV',
+  Undo_remove_fav = 'UNDO_REMOVE_FAV',
+}
+
+export enum DialogActions {
+  Change_base = 'CHANGE_BASE',
+  Add_favorite = 'ADD_FAVORITE',
+  Remove_favorite = 'REMOVE_FAVORITE'
 
 }
