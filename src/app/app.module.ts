@@ -14,6 +14,7 @@ import { ButtonNumberComponent } from './conversor-calc/button-number/button-num
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './shared/routing/routing-strategy';
 import { DialogComponent } from './conversor-list/dialog/dialog.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -27,6 +28,7 @@ import { DialogComponent } from './conversor-list/dialog/dialog.component';
     SharedModule,
     HttpClientModule,
     FlexLayoutModule,
+    FormsModule,
   ],
   declarations: [
     AppComponent,

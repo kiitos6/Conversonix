@@ -1,5 +1,14 @@
 <div class="main-box">
-  <mat-action-list  *ngIf="!loader">
+  <mat-action-list>
+    <!-- <div fxLayout="row"> -->
+    <mat-icon class="search-icon">search</mat-icon>
+    <mat-form-field class="search-box" mat-list-item>
+      <input matInput type="text" placeholder="Search..." [(ngModel)]="value">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  <!-- </div> -->
     <h3 mat-subheader>
       Base currency
     </h3>
