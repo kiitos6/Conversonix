@@ -1,11 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogActions} from '../conversor-list.component';
-
-// export interface DialogReturnType {
-//   action: string;
-//   value: string;
-// }
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogActions } from '../../shared/constants/constants';
 
 export interface DialogData {
   action: string;
