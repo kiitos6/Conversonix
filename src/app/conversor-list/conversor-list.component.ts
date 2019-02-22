@@ -14,8 +14,11 @@ import { UndoActions } from '../shared/constants/constants';
 })
 export class ConversorListComponent implements OnInit {
 
-  currrencyList: Currency[];
+  // currrencyList: Currency[];
   currencyFavList: Map<string, number> = new Map();
+  filteredCurrencyList: Map<string, number> = new Map();
+  currencyArrayList: Currency[];
+  filteredArrayList: Currency[];
   euroBase = {EUR: 1};
   base = 'EUR';
   currenciesData = currencies;
@@ -25,7 +28,6 @@ export class ConversorListComponent implements OnInit {
   undoRemoveFav: string;
   undoAction = '';
   favListToShow = false;
-  value: string;
 
   constructor(private conversorService: ConversorService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
@@ -110,20 +112,31 @@ export class ConversorListComponent implements OnInit {
   getCurrencyList(currency: string): void {
     this.loader = true;
     this.base = currency;
+    this.currencyArrayList = new Array();
+    this.filteredArrayList = new Array();
     this.conversorService.getCurrencyList(currency).subscribe(data => {
       this.loader = false;
-      this.currrencyList = data.rates;
+      // this.currrencyList = data.rates;
+      const list = Object.keys(data.rates);
+
+      list.forEach((key: string) => {
+        // this.filteredCurrencyList.set(key, this.currrencyList[key]);
+        this.currencyArrayList.push({currency: key, value: data.rates[key], currencyCoin: this.currenciesData[key]['name']});
+        // this.filteredArrayList[key] = this.currrencyList[key];
+      });
+      this.filteredArrayList = this.currencyArrayList;
       this.base = data.base;
-      if (data.base === 'EUR') {
-        this.currrencyList = Object.assign(this.currrencyList, this.euroBase);
-      }
+      // if (data.base === 'EUR') {
+      //   this.currrencyList = Object.assign(this.currrencyList, this.euroBase);
+      // }
 
       if (this.currencyFavList.size > 0) {
         this.currencyFavList.forEach((value: number, key: string) => {
-          this.currencyFavList.set(key, this.currrencyList[key]);
+          this.currencyFavList.set(key, data.rates[key]);
         });
       }
-      console.log(this.currrencyList);
+
+      console.log(this.filteredArrayList);
     });
   }
 
@@ -141,12 +154,18 @@ export class ConversorListComponent implements OnInit {
         break;
       }
       case UndoActions.Undo_remove_fav: {
-        this.addToFavorites(this.undoRemoveFav, this.currrencyList[this.undoRemoveFav]);
+        this.addToFavorites(this.undoRemoveFav, this.currencyArrayList[this.undoRemoveFav]);
         break;
       }
     }
     });
+  }
 
+  filterCurrencies(value: string): void {
+    this.filteredArrayList = this.currencyArrayList;
+    this.filteredArrayList = this.filteredArrayList.filter(curr => curr.currency.toLowerCase().includes(value.toLowerCase()) ||
+      curr.currencyCoin.toLowerCase().includes(value.toLowerCase()));
+    console.log(this.filteredArrayList);
   }
 
 }

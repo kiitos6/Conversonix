@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Currency } from '../shared/models/currency';
-// import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling';
 import { LatestCurrenciesResponse } from '../shared/models/latestCurrenciesResponse';
 import { currencies } from '../conversor-list/currencies';
-import { ConversionResponse } from '../shared/models/conversionResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +17,6 @@ export class ConversorService {
   private fixerUrlLatest = 'https://api.exchangeratesapi.io/latest';
 
   response: Observable<LatestCurrenciesResponse> ;
-
-  conversionResponse: Observable<ConversionResponse>;
 
   constructor(private http: HttpClient) { }
 

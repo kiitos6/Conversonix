@@ -6,5 +6,5 @@ export interface LatestCurrenciesResponse {
   date: Date;
   timestamp: Date;
   base: string;
-  rates: Currency[];
+  rates:Currency[];
 }

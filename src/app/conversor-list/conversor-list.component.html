@@ -1,14 +1,12 @@
 <div class="main-box">
   <mat-action-list>
-    <!-- <div fxLayout="row"> -->
     <mat-icon class="search-icon">search</mat-icon>
     <mat-form-field class="search-box" mat-list-item>
-      <input matInput type="text" placeholder="Search..." [(ngModel)]="value">
+      <input #searchBox matInput type="text" placeholder="Search..." [(ngModel)]="value" (input)="filterCurrencies(searchBox.value)">
       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-  <!-- </div> -->
     <h3 mat-subheader>
       Base currency
     </h3>
@@ -37,16 +35,16 @@
       <h3 mat-subheader>
         Currencies
       </h3>
-          <div *ngFor="let rate of currrencyList | keyvalue">
-            <button mat-list-item (click)="actionSelect(rate.key, rate.value)" *ngIf="!currencyFavList.has(rate.key) && rate.key !== base">
-              <img matListAvatar src="assets/images/{{rate.key}}.png" alt="{{rate.key}}" />
-              <h4 class="text-left" mat-line>{{ rate.key }}</h4>
-              <p class="text-left" mat-line> {{ currenciesData[rate.key]? currenciesData[rate.key]['name'] : 'Coin'}}</p>
-              <p> {{ rate.value | number:'1.2-2' }}{{ currenciesData[rate.key] ?
-                currenciesData[rate.key]['symbol_native'] : '€' }}</p>
-              <mat-divider inset></mat-divider>
-            </button>
-          </div>
+      <div *ngFor="let rate of filteredArrayList">
+        <button mat-list-item (click)="actionSelect(rate.currency, rate.value)" *ngIf="!currencyFavList.has(rate.currency) && rate.currency !== base">
+          <img matListAvatar src="assets/images/{{rate.currency}}.png" alt="{{rate.currency}}" />
+          <h4 class="text-left" mat-line>{{ rate.currency }}</h4>
+          <p class="text-left" mat-line> {{ currenciesData[rate.currency]? currenciesData[rate.currency]['name'] : 'Coin'}}</p>
+          <p> {{ rate.value | number:'1.2-2' }}{{ currenciesData[rate.currency] ?
+            currenciesData[rate.currency]['symbol_native'] : '€' }}</p>
+          <mat-divider inset></mat-divider>
+        </button>
+      </div>
   </mat-action-list>
   <mat-spinner *ngIf="loader"></mat-spinner>
 </div>
