@@ -120,23 +120,16 @@ export class ConversorListComponent implements OnInit {
       const list = Object.keys(data.rates);
 
       list.forEach((key: string) => {
-        // this.filteredCurrencyList.set(key, this.currrencyList[key]);
         this.currencyArrayList.push({currency: key, value: data.rates[key], currencyCoin: this.currenciesData[key]['name']});
-        // this.filteredArrayList[key] = this.currrencyList[key];
       });
       this.filteredArrayList = this.currencyArrayList;
       this.base = data.base;
-      // if (data.base === 'EUR') {
-      //   this.currrencyList = Object.assign(this.currrencyList, this.euroBase);
-      // }
 
       if (this.currencyFavList.size > 0) {
         this.currencyFavList.forEach((value: number, key: string) => {
           this.currencyFavList.set(key, data.rates[key]);
         });
       }
-
-      console.log(this.filteredArrayList);
     });
   }
 
@@ -165,7 +158,6 @@ export class ConversorListComponent implements OnInit {
     this.filteredArrayList = this.currencyArrayList;
     this.filteredArrayList = this.filteredArrayList.filter(curr => curr.currency.toLowerCase().includes(value.toLowerCase()) ||
       curr.currencyCoin.toLowerCase().includes(value.toLowerCase()));
-    console.log(this.filteredArrayList);
   }
 
 }
