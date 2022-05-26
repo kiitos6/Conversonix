@@ -122,7 +122,7 @@ export class ConversorListComponent implements OnInit {
       const list = Object.keys(data.rates);
 
       list.forEach((key: string) => {
-        this.currencyArrayList.push({currency: key, value: data.rates[key], currencyCoin: this.currenciesData[key]['name']});
+        this.currencyArrayList.push({currency: key, value: data.rates[key]});
       });
       this.filteredArrayList = this.currencyArrayList;
       this.base = data.base;

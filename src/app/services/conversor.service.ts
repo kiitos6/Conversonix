@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Currency } from '../shared/models/currency';
 import { LatestCurrenciesResponse } from '../shared/models/latestCurrenciesResponse';
 import { currencies } from '../conversor-list/currencies';
@@ -10,11 +10,13 @@ import { currencies } from '../conversor-list/currencies';
 })
 export class ConversorService {
 
-  private base = '?base=';
+  // apiKey: p4V17QDQyrhk78GTW0f0oZNg0kKFCfG6
+
+  private base = '&base=';
 
   private symbols: string;
 
-  private fixerUrlLatest = 'https://api.exchangeratesapi.io/latest';
+  private fixerUrlLatest = 'https://api.apilayer.com/exchangerates_data/latest';
 
   response: Observable<LatestCurrenciesResponse> ;
 
@@ -22,7 +24,12 @@ export class ConversorService {
 
   getCurrencyList(currency: string): Observable<LatestCurrenciesResponse> {
     this.readCurrencyList();
-  return this.http.get<LatestCurrenciesResponse>(this.fixerUrlLatest.concat(this.base).concat(currency));
+
+    const headers = new HttpHeaders();
+    headers.append('apikey', 'p4V17QDQyrhk78GTW0f0oZNg0kKFCfG6');
+
+
+    return this.http.get<LatestCurrenciesResponse>(this.fixerUrlLatest.concat('?apikey=p4V17QDQyrhk78GTW0f0oZNg0kKFCfG6').concat(this.base).concat(currency));
 
   }
 
