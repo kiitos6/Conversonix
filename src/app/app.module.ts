@@ -20,34 +20,30 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    HttpClientModule,
-    FlexLayoutModule,
-    FormsModule,
-  ],
-  declarations: [
-    AppComponent,
-    ConversorListComponent,
-    ConversorCalcComponent,
-    ButtonNumberComponent,
-    DialogComponent,
-  ],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
-  ],
-  entryComponents: [
-    DialogComponent,
-  ],
-  bootstrap: [
-    AppComponent,
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        HttpClientModule,
+        FlexLayoutModule,
+        FormsModule,
+    ],
+    declarations: [
+        AppComponent,
+        ConversorListComponent,
+        ConversorCalcComponent,
+        ButtonNumberComponent,
+        DialogComponent,
+    ],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
+    ],
+    bootstrap: [
+        AppComponent,
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+    ]
 })
 export class AppModule { }
