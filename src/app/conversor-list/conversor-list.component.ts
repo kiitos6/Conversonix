@@ -29,6 +29,7 @@ export class ConversorListComponent implements OnInit {
   undoRemoveFav: string;
   undoAction = '';
   favListToShow = false;
+  value: string;
 
   constructor(private conversorService: ConversorService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 

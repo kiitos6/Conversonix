@@ -6,6 +6,10 @@ export interface DialogData {
   action: string;
   value: string;
   currencyValue: string;
+  currenciesData: any;
+  currencyInfo: string;
+  base: string;
+  favorite: boolean;
 }
 
 
