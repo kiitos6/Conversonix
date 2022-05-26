@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from '../shared/models/currency';
 import { ConversorService } from '../services/conversor.service';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

@@ -1,5 +1,7 @@
 import { ActivatedRouteSnapshot, RouteReuseStrategy, DetachedRouteHandle } from '@angular/router';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class CustomReuseStrategy implements RouteReuseStrategy {
   routesToCache: string[] = ['calc', 'list'];
   storedRouteHandles = new Map<string, DetachedRouteHandle>();

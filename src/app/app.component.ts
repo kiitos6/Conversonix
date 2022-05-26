@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ContentChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteTabs } from './shared/models/RouteTabs';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
