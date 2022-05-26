@@ -59,15 +59,15 @@ input {
   font-size: 24px;
 }
 
-:host/deep/ .mat-form-field-underline {
+:host::ng-deep .mat-form-field-underline {
   display: none;
 }
 
-:host/deep/ .mat-select-value {
+:host::ng-deep .mat-select-value {
   text-align: center;
 }
 
-:host/deep/ .mat-form-field-label-wrapper {
+:host::ng-deep .mat-form-field-label-wrapper {
   text-align: left;
 }
 
